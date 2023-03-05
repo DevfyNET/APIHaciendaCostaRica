@@ -37,9 +37,34 @@ export class FE {
         return  this.doc.crearXMLFacturaElectronica(datos);
     }
 
+    public async crearXMLFEC( datos:any)
+    {
+        return  this.doc.crearXMLFacturaElectronicaCompra(datos);
+    }
+
+    public async crearXMLFEE( datos:any)
+    {
+        return  this.doc.crearXMLFacturaElectronicaExportacion(datos);
+    }
+
+    public async crearXMLTE( datos:any)
+    {
+        return  this.doc.crearXMLTiqueteElectronico(datos);
+    }
+
     public async crearXMLNC( datos:any)
     {
         return  this.doc.crearXMLNotaCreditoElectronica(datos);
+    }
+
+    public async crearXMLND( datos:any)
+    {
+        return  this.doc.crearXMLNotaDebitoElectronica(datos);
+    }
+
+    public async crearXMLMH( datos:any)
+    {
+        return  this.doc.crearXMLMensajeHacienda(datos);
     }
 }
 export default FE;

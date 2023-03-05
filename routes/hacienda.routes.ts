@@ -40,6 +40,48 @@ hacienda.post('/hacienda/fe/xml',  async (req: Request, res: Response) => {
 });
 
 /**
+ * Genera XML Factura Electrónica Compras
+ * Ministerio de Hacienda
+ */
+hacienda.post('/hacienda/fec/xml',  async (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+
+    _fe.crearXMLFEC(datos).then((response) => {
+        console.log(response);
+    });
+    return res.status(200).json({ mjs: "XML Creado"});
+});
+
+/**
+ * Genera XML Factura Electrónica Exportación
+ * Ministerio de Hacienda
+ */
+hacienda.post('/hacienda/fee/xml',  async (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+
+    _fe.crearXMLFEE(datos).then((response) => {
+        console.log(response);
+    });
+    return res.status(200).json({ mjs: "XML Creado"});
+});
+
+/**
+ * Genera XML Tiquete Electrónico
+ * Ministerio de Hacienda
+ */
+hacienda.post('/hacienda/te/xml',  async (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+
+    _fe.crearXMLTE(datos).then((response) => {
+        console.log(response);
+    });
+    return res.status(200).json({ mjs: "XML Creado"});
+});
+
+/**
  * Genera XML Nota de Crédito Electrónica
  * Ministerio de Hacienda
  */
@@ -48,6 +90,34 @@ hacienda.post('/hacienda/nc/xml',  async (req: Request, res: Response) => {
     let datos = { ...req.body };
 
     _fe.crearXMLNC(datos).then((response) => {
+        console.log(response);
+    });
+    return res.status(200).json({ mjs: "XML Creado"});
+});
+
+/**
+ * Genera XML Nota de Débito Electrónica
+ * Ministerio de Hacienda
+ */
+hacienda.post('/hacienda/nd/xml',  async (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+
+    _fe.crearXMLND(datos).then((response) => {
+        console.log(response);
+    });
+    return res.status(200).json({ mjs: "XML Creado"});
+});
+
+/**
+ * Genera XML Mensaje Hacienda
+ * Ministerio de Hacienda
+ */
+hacienda.post('/hacienda/mh/xml',  async (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+
+    _fe.crearXMLMH(datos).then((response) => {
         console.log(response);
     });
     return res.status(200).json({ mjs: "XML Creado"});
