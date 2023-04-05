@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-16"?>
+<FacturaElectronica
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica">
+  <Clave>00000000000000000000000000000000000000000000000000</Clave>
+  <CodigoActividad>012345</CodigoActividad>
+  <NumeroConsecutivo>00000000001089181342</NumeroConsecutivo>
+  <FechaEmision>2023-02-22T18:13:42.157211-07:00</FechaEmision>
+  <Emisor>
+    <Nombre>Blue Spirit Costa Rica</Nombre>
+    <Identificacion>
+      <Tipo>02</Tipo>
+      <Numero>123456789</Numero>
+    </Identificacion>
+    <Ubicacion>
+        <Provincia>5</Provincia>
+        <Canton>01</Canton>
+        <Distrito>01</Distrito>
+      <OtrasSenas>Blue Spirit</OtrasSenas>
+    </Ubicacion>
+    <Telefono>
+      <CodigoPais>845</CodigoPais>
+      <NumTelefono>6842007</NumTelefono>
+    </Telefono>
+    <CorreoElectronico>yatzu@bluespiritcostarica.com</CorreoElectronico>
+  </Emisor>
+  <Receptor>
+    <Nombre>DEL ORO SOCIEDAD ANONIMA</Nombre>
+    <Identificacion>
+        <Tipo>02</Tipo>
+        <Numero>3101154436</Numero>
+    </Identificacion>
+    <NombreComercial>DEL ORO SOCIEDAD ANONIMA</NombreComercial>
+    <Ubicacion>
+        <Provincia>5</Provincia>
+        <Canton>10</Canton>
+        <Distrito>02</Distrito>
+        <OtrasSenas>20 KM DEL CRUCE CARRETERA HACIA SANTA CECILIA, PLANTA PROCESARODA DE CITRICOS.</OtrasSenas>
+    </Ubicacion>
+    <Telefono>
+        <CodigoPais>506</CodigoPais>
+        <NumTelefono>26795800</NumTelefono>
+    </Telefono>
+    <Fax>
+        <CodigoPais>506</CodigoPais>
+        <NumTelefono>26777102</NumTelefono>
+    </Fax>
+    <CorreoElectronico>delorosa@delorocr.com</CorreoElectronico>
+</Receptor>
+  <CondicionVenta>99</CondicionVenta>
+  <DetalleServicio>
+    <LineaDetalle>
+      <NumeroLinea>1</NumeroLinea>
+      <CodigoComercial>
+        <Tipo>01</Tipo>
+        <Codigo>28079511810</Codigo>
+      </CodigoComercial>
+      <Cantidad>7</Cantidad>
+      <UnidadMedida>Alc</UnidadMedida>
+      <Detalle>101) Hermitage Twin with A/C</Detalle>
+      <PrecioUnitario>0.0000</PrecioUnitario>
+      <MontoTotal>0.0000</MontoTotal>
+      <SubTotal>0.0000</SubTotal>
+      <Impuesto>
+        <Codigo>01</Codigo>
+        <Monto>0.0000</Monto>
+      </Impuesto>
+      <MontoTotalLinea>0.0000</MontoTotalLinea>
+    </LineaDetalle>
+  </DetalleServicio>
+  <ResumenFactura>
+    <CodigoTipoMoneda>
+      <CodigoMoneda>CRC</CodigoMoneda>
+      <TipoCambio>0</TipoCambio>
+    </CodigoTipoMoneda>
+    <TotalServGravados>0</TotalServGravados>
+    <TotalServExentos>0</TotalServExentos>
+    <TotalServExonerado>0</TotalServExonerado>
+    <TotalMercanciasGravadas>0.0000</TotalMercanciasGravadas>
+    <TotalMercanciasExentas>0.0000</TotalMercanciasExentas>
+    <TotalMercExonerada>0</TotalMercExonerada>
+    <TotalGravado>0.0000</TotalGravado>
+    <TotalExento>0.0000</TotalExento>
+    <TotalExonerado>0</TotalExonerado>
+    <TotalVenta>0.0000</TotalVenta>
+    <TotalDescuentos>0</TotalDescuentos>
+    <TotalVentaNeta>0.0000</TotalVentaNeta>
+    <TotalImpuesto>0.0000</TotalImpuesto>
+    <TotalIVADevuelto>0</TotalIVADevuelto>
+    <TotalOtrosCargos>0</TotalOtrosCargos>
+    <TotalComprobante>0.0000</TotalComprobante>
+  </ResumenFactura>
+  <Otros>
+    <OtroTexto>12</OtroTexto>
+  </Otros>
+</FacturaElectronica>

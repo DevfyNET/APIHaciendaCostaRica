@@ -8,7 +8,7 @@ export class Documentos {
      * @description Es la carpeta por defecto donde se van a guardar los xml generados
      * @return filePath
      */
-    public filePath = `${process.cwd()}/xml/`;
+    public filePath = `${process.cwd()}/static/503890553/xml/`;
 
     /**
      * @var options
@@ -40,11 +40,13 @@ export class Documentos {
                 facturaElectronica += '\n';
                 facturaElectronica += builder.build(JSONFE);
                 facturaElectronica += '</FacturaElectronica>';
-                fse.writeFileSync(`${this.filePath}FE_${JSONFE.Clave}.xml`,  facturaElectronica);
+
+            fse.writeFileSync(`${this.filePath}FE_${JSONFE.Clave}.xml`,  facturaElectronica);
 
             return facturaElectronica;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -57,6 +59,7 @@ export class Documentos {
     public async crearXMLFacturaElectronicaCompra(JSONFEC:any)
     {
         try {
+
             const builder = new XMLBuilder(this.options);
             let facturaElectronicaCompra = '';
                 facturaElectronicaCompra += '<?xml version="1.0" encoding="utf-8"?>';
@@ -65,11 +68,13 @@ export class Documentos {
                 facturaElectronicaCompra += '\n';
                 facturaElectronicaCompra += builder.build(JSONFEC);
                 facturaElectronicaCompra += '</FacturaElectronicaCompra>';
-                fse.writeFileSync(`${this.filePath}FEC_${JSONFEC.Clave}.xml`,  facturaElectronicaCompra);
+
+            fse.writeFileSync(`${this.filePath}FEC_${JSONFEC.Clave}.xml`,  facturaElectronicaCompra);
 
             return facturaElectronicaCompra;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -87,15 +92,17 @@ export class Documentos {
             let facturaElectronicaExportacion = '';
                 facturaElectronicaExportacion += '<?xml version="1.0" encoding="utf-8"?>';
                 facturaElectronicaExportacion += '\n';
-                facturaElectronicaExportacion += '<facturaElectronicaExportacion xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion.xsd">';
+                facturaElectronicaExportacion += '<FacturaElectronicaExportacion xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronicaExportacion.xsd">';
                 facturaElectronicaExportacion += '\n';
                 facturaElectronicaExportacion += builder.build(JSONFEE);
-                facturaElectronicaExportacion += '</facturaElectronicaExportacion>';
-                fse.writeFileSync(`${this.filePath}FEE_${JSONFEE.Clave}.xml`,  facturaElectronicaExportacion);
+                facturaElectronicaExportacion += '</FacturaElectronicaExportacion>';
+
+            fse.writeFileSync(`${this.filePath}FEE_${JSONFEE.Clave}.xml`,  facturaElectronicaExportacion);
 
             return facturaElectronicaExportacion;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -108,6 +115,7 @@ export class Documentos {
     public async crearXMLTiqueteElectronico(JSONTE:any)
     {
         try {
+
             const builder = new XMLBuilder(this.options);
             let tiqueteElectronico = '';
                 tiqueteElectronico += '<?xml version="1.0" encoding="utf-8"?>';
@@ -120,8 +128,9 @@ export class Documentos {
             fse.writeFileSync(`${this.filePath}TE_${JSONTE.Clave}.xml`,  tiqueteElectronico);
 
             return tiqueteElectronico;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -133,6 +142,7 @@ export class Documentos {
     public async crearXMLNotaCreditoElectronica(JSONNC:any)
     {
         try {
+
             const builder = new XMLBuilder(this.options);
             let notaCredito = '';
                 notaCredito += '<?xml version="1.0" encoding="utf-8"?>';
@@ -145,8 +155,9 @@ export class Documentos {
             fse.writeFileSync(`${this.filePath}NC_${JSONNC.Clave}.xml`,  notaCredito);
 
             return notaCredito;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -158,6 +169,7 @@ export class Documentos {
     public async crearXMLNotaDebitoElectronica(JSONND:any)
     {
         try {
+
             const builder = new XMLBuilder(this.options);
             let notaCredito = '';
                 notaCredito += '<?xml version="1.0" encoding="utf-8"?>';
@@ -170,8 +182,9 @@ export class Documentos {
             fse.writeFileSync(`${this.filePath}NC_${JSONND.Clave}.xml`,  notaCredito);
 
             return notaCredito;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 
@@ -183,6 +196,7 @@ export class Documentos {
     public async crearXMLMensajeHacienda(JSONMH:any)
     {
         try {
+
             const builder = new XMLBuilder(this.options);
             let mensajeHacienda = '';
                 mensajeHacienda += '<?xml version="1.0" encoding="utf-8"?>';
@@ -195,8 +209,9 @@ export class Documentos {
             fse.writeFileSync(`${this.filePath}NC_${JSONMH.Clave}.xml`,  mensajeHacienda);
 
             return mensajeHacienda;
+
         } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err}`);
+            throw new Error(`Se presento un error al generar el xml: ${err}`);
         }
     }
 }

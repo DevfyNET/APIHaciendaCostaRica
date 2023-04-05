@@ -46,3 +46,10 @@ export const HEADERS = {
     ContentTypeIDP : 'application/x-www-form-urlencoded; charset=utf-8',
     ContentTypeAPI : 'application/json;',
 }
+
+/**
+ * Clave Secreta
+ * Metodo : Fort Knox Passwords
+ * Generada desde https://randomkeygen.com/#ft_knox_pw
+ */
+export const clave_secreta = ',2>vJC-!{]+OQcI?b_@@i0[}/Rx&{_';

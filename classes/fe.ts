@@ -5,12 +5,14 @@ import { db } from '../global/environment';
 import fse from 'fs-extra';
 
 import Documentos from '../lib/documentos';
+import General from '../classes/general';
 
 export class FE {
 
-    public filePath = `${process.cwd()}/xml/`;
+    public filePath = `${process.cwd()}/static/503890553/xml/`;
 
     public doc = new Documentos();
+    public general = new General();
 
     public async cargarXmlDirectorio() {
         try {
@@ -30,6 +32,22 @@ export class FE {
         } catch (err:any) {
             throw new Error(`Se presento un error en el procedimiento ${err}`);
         }
+    }
+
+    public codigoSeguridad()
+    {
+        return this.general.codigoSeguridad();
+    }
+
+    public claveFE(datos:any)
+    {
+        return this.general.clave(datos);
+    }
+
+    public async consecutivoFE(datos:any)
+    {
+        let consecutivo = await this.general.consecutivo(datos);
+        return consecutivo;
     }
 
     public async crearXMLFE( datos:any)

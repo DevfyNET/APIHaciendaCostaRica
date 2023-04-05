@@ -129,9 +129,12 @@ hacienda.post('/hacienda/mh/xml',  async (req: Request, res: Response) => {
 hacienda.get('/hacienda/status', async (req: Request, res: Response) => {
 
     const response = await fetch('https://apis.gometa.org/status/status.json');
-    const data = await response.json();
-
-    return res.status(200).json(data);
+    if (response) {
+        const data = await response.json();
+        return res.status(200).json(data);
+    } else {
+        return res.status(200).json({mgs: 'Error'});
+    }
 });
 
 /**
@@ -148,7 +151,7 @@ hacienda.get('/hacienda/tipo-cambio', async (req: Request, res: Response) => {
 /**
  * Información Receptor Ministerio de Hacienda
  */
-hacienda.get('/hacienda/info-receptor/:identificacion', async (req: Request, res: Response, next) => {
+hacienda.get('/hacienda/info-receptor/:identificacion', async (req: Request, res: Response) => {
 
     let identificacion = req.params.identificacion;
 
@@ -243,3 +246,4 @@ hacienda.post('/hacienda/token/eliminar', async (req:Request, res:Response) => {
 });
 
 export default hacienda;
+

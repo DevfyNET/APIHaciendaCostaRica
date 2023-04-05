@@ -1,11 +1,13 @@
 import { Router, Request, Response } from 'express';
 import Ubicaciones from '../classes/ubicaciones';
+import Autentidicacion from '../middlewares/autentificacion';
 
 const _u = new Ubicaciones();
+const _a = new Autentidicacion();
 
 const ubicaciones = Router();
 
-ubicaciones.get('/ubicacion/provincia/:provincia', async (req: Request, res: Response) => {
+ubicaciones.get('/ubicacion/provincia/:provincia',  _a.AutentidicacionMiddleware, async (req: Request, res: Response) => {
 
     let provincia = req.params.provincia;
 
@@ -16,7 +18,7 @@ ubicaciones.get('/ubicacion/provincia/:provincia', async (req: Request, res: Res
     });
 });
 
-ubicaciones.get('/ubicacion/canton/:provincia/:canton', async (req: Request, res: Response) => {
+ubicaciones.get('/ubicacion/canton/:provincia/:canton',  _a.AutentidicacionMiddleware, async (req: Request, res: Response) => {
 
     let provincia = req.params.provincia;
     let canton = req.params.canton;
@@ -28,7 +30,7 @@ ubicaciones.get('/ubicacion/canton/:provincia/:canton', async (req: Request, res
     });
 });
 
-ubicaciones.get('/ubicacion/distrito/:provincia/:canton/:distrito', async (req: Request, res: Response) => {
+ubicaciones.get('/ubicacion/distrito/:provincia/:canton/:distrito',  _a.AutentidicacionMiddleware, async (req: Request, res: Response) => {
 
     let provincia = req.params.provincia;
     let canton = req.params.canton;
@@ -41,7 +43,7 @@ ubicaciones.get('/ubicacion/distrito/:provincia/:canton/:distrito', async (req: 
     });
 });
 
-ubicaciones.get('/ubicacion/barrio/:provincia/:canton/:distrito/:barrio', async (req: Request, res: Response) => {
+ubicaciones.get('/ubicacion/barrio/:provincia/:canton/:distrito/:barrio',  _a.AutentidicacionMiddleware, async (req: Request, res: Response) => {
 
     let provincia = req.params.provincia;
     let canton = req.params.canton;

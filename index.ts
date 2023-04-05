@@ -9,13 +9,16 @@ import fe from './routes/fe.routes';
 import hacienda from './routes/hacienda.routes';
 import identificacion from './routes/identificacion.routes';
 import impuestos from './routes/impuestos.routes';
+import monedas from "./routes/monedas.routes";
 import pagos from './routes/pagos.routes';
 import referencia from './routes/referencia.routes';
 import tipo_documento from './routes/tipoDocumento.routes';
 import tipo_mensaje from './routes/tipoMensaje.routes';
 import ubicaciones from './routes/ubicaciones.routes';
 import unidad_medida from './routes/unidadMedida.routes';
-
+import firmador from './routes/firmador.routes';
+import sucursal from "./routes/sucursal.routes";
+import usuario from "./routes/usuario.routes";
 
 const server = Server.instance;
 
@@ -32,15 +35,19 @@ server.app.use('/api', [
     documento_referencia,
     exoneracion,
     fe,
+    firmador,
     hacienda,
     identificacion,
     impuestos,
+    monedas,
     pagos,
     referencia,
+    sucursal,
     tipo_documento,
     tipo_mensaje,
     ubicaciones,
-    unidad_medida
+    unidad_medida,
+    usuario
 ]);
 
 server.start(() => {
