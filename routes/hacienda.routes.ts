@@ -148,6 +148,9 @@ hacienda.get('/hacienda/tipo-cambio', async (req: Request, res: Response) => {
     return res.status(200).json(data);
 });
 
+/* 14 Abril
+4 Mayo */
+
 /**
  * Información Receptor Ministerio de Hacienda
  */

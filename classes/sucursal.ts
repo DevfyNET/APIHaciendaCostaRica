@@ -3,17 +3,30 @@ import { db } from '../global/environment';
 
 export class Sucursal {
 
-    public async insertUsuarioCaja(dato:any)
+    public async insertUsuarioSucursal(dato:any)
     {
         try {
             let pool = await mssql.connect(db);
             let result = await pool.request()
                 .input('usuario', mssql.VarChar, dato.usuario)
                 .input('nombre_sucursal', mssql.VarChar, dato.nombre_sucursal)
-                .input('numero_sucursal', mssql.TinyInt, dato.sucursal)
-                .input('numero_caja', mssql.TinyInt, dato.caja)
-                .input('cabys', mssql.VarChar, dato.cabys)
-                        .execute('sp_usuarioCaja_insert');
+                .input('numero_sucursal', mssql.TinyInt, dato.numero_sucursal)
+                        .execute('sp_usuarioSucursal_insert');
+            return result.recordset;
+
+        } catch (err:any) {
+            throw new Error(`Se presento un error en el procedimiento ${err.procName}...${err.message}`);
+        }
+    }
+
+    public async getUsuarioSucursal(dato:any)
+    {
+        try {
+            let pool = await mssql.connect(db);
+            let result = await pool.request()
+                .input('id', mssql.Int, (dato.id == 0) ? null : dato.id)
+                .input('usuario', mssql.Char, (dato.usuario == 0) ? null : dato.usuario)
+                        .execute('sp_usuarioSucursal_select');
             return result.recordset;
 
         } catch (err:any) {
@@ -29,6 +42,24 @@ export class Sucursal {
                 .input('id', mssql.Int, (dato.id == 0) ? null : dato.id)
                 .input('usuario', mssql.Char, (dato.usuario == 0) ? null : dato.usuario)
                         .execute('sp_usuarioCaja_select');
+            return result.recordset;
+
+        } catch (err:any) {
+            throw new Error(`Se presento un error en el procedimiento ${err.procName}...${err.message}`);
+        }
+    }
+
+    public async insertUsuarioCaja(dato:any)
+    {
+        try {
+            let pool = await mssql.connect(db);
+            let result = await pool.request()
+                .input('usuario', mssql.VarChar, dato.usuario)
+                .input('sucursal', mssql.Int, dato.sucursal)
+                .input('nombre_caja', mssql.VarChar, dato.nombre_caja)
+                .input('caja', mssql.TinyInt, dato.caja)
+                .input('actividad', mssql.TinyInt, dato.actividad)
+                        .execute('sp_usuarioCaja_insert');
             return result.recordset;
 
         } catch (err:any) {

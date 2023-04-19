@@ -19,6 +19,7 @@ import unidad_medida from './routes/unidadMedida.routes';
 import firmador from './routes/firmador.routes';
 import sucursal from "./routes/sucursal.routes";
 import usuario from "./routes/usuario.routes";
+import actividades_economicas from './routes/actividades-economicas.routes';
 
 const server = Server.instance;
 
@@ -31,6 +32,7 @@ server.app.use( cors({ origin: true, credentials: true  }) );
 
 // Rutas de servicios
 server.app.use('/api', [
+    actividades_economicas,
     condiciones,
     documento_referencia,
     exoneracion,

@@ -7,6 +7,26 @@ const _a = new Autentidicacion();
 
 const sucursal = Router();
 
+sucursal.post('/sucursal/crear',  _a.AutentidicacionMiddleware, (req: Request, res: Response) => {
+
+    let datos = { ...req.body };
+    
+    _s.insertUsuarioSucursal(datos).then(result => {
+        res.status(200).json({mgs: '¡La información ha sido guardada con éxito!'});
+    }).catch(function (err) {
+        res.status(500).json(err);
+    });
+});
+
+sucursal.get('/sucursal/:id/:usuario',  _a.AutentidicacionMiddleware, (req: Request, res: Response) => {
+
+    _s.getUsuarioSucursal(req.params).then(result => {
+        res.status(200).json(result);
+    }).catch(function (err) {
+        res.status(500).json(err);
+    });
+});
+
 sucursal.post('/caja/crear',  _a.AutentidicacionMiddleware, (req: Request, res: Response) => {
 
     let datos = { ...req.body };
@@ -17,7 +37,7 @@ sucursal.post('/caja/crear',  _a.AutentidicacionMiddleware, (req: Request, res: 
     });
 });
 
-sucursal.get('/caja/:id/:usuario',  _a.AutentidicacionMiddleware, (req: Request, res: Response) => {
+sucursal.get('/caja/:id/:usuario', (req: Request, res: Response) => {
 
     _s.getUsuarioCaja(req.params).then(result => {
         res.status(200).json(result);

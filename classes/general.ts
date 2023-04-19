@@ -32,10 +32,6 @@ export class General {
     public async consecutivo(datos:any)
     {
         try {
-
-            console.log(datos);
-            
-
             let sucursal        = datos.sucursal.padStart(3, '0'),
                 punto_venta     = datos.punto_venta.padStart(5, '0'),
                 tipo_documento  = datos.tipo_documento.padStart(2, '0'),
