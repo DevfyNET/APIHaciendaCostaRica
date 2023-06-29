@@ -1,34 +1,32 @@
 import { Router, Request, Response } from 'express';
 import FE from '../classes/fe';
 
+const fe = Router();
 const _fe = new FE();
 
-const fe = Router();
-
+// Generar código de seguridad
 fe.get('/factura/codigo-seguridad', (req: Request, res: Response) => {
-    let codigo = _fe.codigoSeguridad();
-    return res.status(200).json({ codigoSeguridad: codigo });
+    const codigo = _fe.codigoSeguridad();
+    res.status(200).json({ codigoSeguridad: codigo });
 });
 
+// Generar clave de factura electrónica
 fe.post('/factura/clave', (req: Request, res: Response) => {
-
-    let datos = { ...req.body };
-    let clave = _fe.claveFE(datos);
-    return res.status(200).json({ clave: clave });
+    const datos = { ...req.body };
+    const clave = _fe.claveFE(datos);
+    res.status(200).json({ clave: clave });
 });
 
-fe.get('/factura/numero-consecutivo/:sucursal/:punto_venta/:tipo_documento/:usuario', (req: Request, res: Response) => {
+// Obtener número consecutivo de factura electrónica
+fe.get('/factura/numero-consecutivo/:sucursal/:punto_venta/:tipo_documento/:usuario', async (req: Request, res: Response) => {
 
-    
     let dato = req.params;
-
-    console.log(dato);
-    
-    _fe.consecutivoFE(dato).then(result => {
-        return res.status(200).json({ consecutivo: result });
-    }).catch(function (err) {
-        return res.status(500).json(err);
-    });
+    try {
+        const consecutivo = await _fe.consecutivoFE(dato);
+        res.status(200).json({ consecutivo: consecutivo });
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 export default fe;

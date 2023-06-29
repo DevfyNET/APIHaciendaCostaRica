@@ -11,7 +11,7 @@
  * Producción: prod
  * Desarrollo: stag
  */
-export const ENV = 'prod';
+export let ENV = 'stag';
 
 /**
  * Puerto de la aplicación (en el entorno de desarrollo) o puerto predeterminado (en el entorno de producción) de la aplicación.
@@ -43,7 +43,7 @@ export const URL = {
 }
 
 export const HEADERS = {
-    ContentTypeIDP : 'application/x-www-form-urlencoded; charset=utf-8',
+    ContentTypeIDP : 'application/x-www-form-urlencoded; charset=utf-8;',
     ContentTypeAPI : 'application/json;',
 }
 

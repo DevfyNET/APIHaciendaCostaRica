@@ -103,29 +103,5 @@ class Usuario {
             throw new Error(`Se presento un error en el procedimiento ${err.procName}...${err.message}`);
         }
     }
-
-    public async getJefaturasEmpleados(cod_jefe: any) {
-        try {
-            let pool = await mssql.connect(db);
-            let result = await pool.request()
-                                .input('cod_jefe', mssql.VarChar, cod_jefe)
-                                    .execute('sp_dc_jefaturas_empleados');
-            return result.recordset;
-        } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err.procName}...${err.message}`);
-        }
-    }
-
-    public async getJefaturas(codigo: number) {
-        try {
-            let pool = await mssql.connect(db);
-            let result = await pool.request()
-                                .input('codigo', mssql.VarChar, (codigo == 0) ? null : codigo)
-                                    .execute('sp_dc_jefaturas');
-            return result.recordset;
-        } catch (err:any) {
-            throw new Error(`Se presento un error en el procedimiento ${err.procName}...${err.message}`);
-        }
-    }
 }
 export default Usuario;

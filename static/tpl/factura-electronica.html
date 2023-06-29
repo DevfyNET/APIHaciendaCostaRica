@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:100,300,400,900,700,500,300,100);
+        *{
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: #fff;
+            font-family: 'Roboto', sans-serif;
+            background-image: url('');
+            background-repeat: repeat-y;
+            background-size: 100%;
+        }
+        ::selection {
+            background: #f31544;
+            color: #FFF;
+        }
+        ::moz-selection {
+            background: #f31544;
+            color: #FFF;
+        }
+        h1{
+            font-size: 1.5em;
+            color: #222;
+        }
+        h2{
+            font-size: .6em;
+        }
+        h3{
+            font-size: 1.2em;
+            font-weight: 300;
+            line-height: 2em;
+        }
+        p{
+            font-size: .5em;
+            color: #666;
+            line-height: 1.2em;
+        }
+        #invoiceholder{
+            width:100%;
+            height: 100%;
+            padding-top: 50px;
+        }
+        #headerimage{
+            z-index:-1;
+            position:relative;
+            top: -50px;
+            height: 250px;
+            background-color: #fff;
+            overflow:hidden;
+            background-attachment: fixed;
+            background-size: 1920px 80%;
+            background-position: 50% -90%;
+        }
+        #invoice{
+            position: relative;
+            top: -290px;
+            margin: 0 auto;
+            width: 100%;
+            background: #FFF;
+        }
+        [id*='invoice-']{
+            /* Targets all id with 'col-' */
+            border-bottom: 1px solid #EEE;
+            padding: 10px;
+        }
+        #invoice-top{
+            min-height: 120px;
+        }
+        #invoice-mid{
+            min-height: 120px;
+        }
+        #invoice-bot{
+            min-height: 250px;
+        }
+        .logo{
+            float: left;
+            height: 60px;
+            width: 60px;
+            background: url(http://michaeltruong.ca/images/logo1.png) no-repeat;
+            background-size: 60px 60px;
+        }
+        .clientlogo{
+            float: left;
+            height: 60px;
+            width: 60px;
+            background: url(http://michaeltruong.ca/images/client.jpg) no-repeat;
+            background-size: 60px 60px;
+            border-radius: 50px;
+        }
+        .info{
+            display: block;
+            float:left;
+            margin-left: 20px;
+        }
+        .title{
+            float: right;
+        }
+        .title p{
+            text-align: right;
+        }
+        #project{
+            margin-left: 52%;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td{
+            padding: 5px 0 5px 15px;
+            border: 1px solid #EEE 
+        }
+        .tabletitle{
+            padding: 5px;
+            background: #EEE;
+        }
+        .service{
+            border: 1px solid #EEE;
+        }
+        .item{
+            /* width: 50%; */
+        }
+        .itemtext{
+            font-size: .5em;
+        }
+        #legalcopy{
+            margin-top: 30px;
+            text-align: center;
+        }
+        .legal{
+            width:100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="invoiceholder">
+        <div id="headerimage"></div>
+        <div id="invoice">
+            <div id="invoice-top">
+                <div class="logo"></div>
+                <div class="info">
+                    <h2>{{ Emisor.NombreComercial }}</h2>
+                    <p>{{ Emisor.Nombre }}</br>
+                        {{ Emisor.Identificacion.Numero }}</br>
+                        {{ Emisor.CorreoElectronico }}</br>
+                        +{{ Emisor.Telefono.CodigoPais }} {{ Emisor.Telefono.NumTelefono }}</br>
+                        {{ Emisor.Ubicacion.OtrasSenas }}</p>
+                </div><!--End Info-->
+                <div class="title">
+                    <h1>Factura Electrónica</h1>
+                    <p>{{ Clave }}</br> {{ NumeroConsecutivo }}</p>
+                    <p>Fecha: {{ FechaEmision }}</br>
+                        Moneda:{{ ResumenFactura.CodigoTipoMoneda.CodigoMoneda }}</br>
+                        Tipo de Cambio: ¢ {{ ResumenFactura.CodigoTipoMoneda.TipoCambio }}</br></p>
+                </div><!--End Title-->
+            </div><!--End InvoiceTop-->
+
+            <div id="invoice-mid">
+                <div class="info">
+                    <h2>{{ Receptor.NombreComercial }}</h2>
+                    <p>{{ Receptor.Nombre }}</br>
+                        {{ Receptor.Identificacion.Numero }}</br>
+                        {{ Receptor.CorreoElectronico }}</br>
+                        +{{ Receptor.Telefono.CodigoPais }} {{ Receptor.Telefono.NumTelefono }}</br>
+                        {{ Receptor.Ubicacion.OtrasSenas }}</p>
+                </div>
+                <div class="project">
+                    <img src="{{qrCodeDataUrl}}" alt="{{Clave}}" width="100"/>
+                </div>
+            </div><!--End Invoice Mid-->
+
+            <div id="invoice-bot">
+                <div id="table">
+                    <table>
+                        <tr class="tabletitle">
+                            <td class="item"><h2>Linea</h2></td>
+                            <td class="item"><h2>Codigo</h2></td>
+                            <td class="item"><h2>Detalle</h2></td>
+                            <td class="item"><h2>Precio</h2></td>
+                            <td class="item"><h2>Cantidad</h2></td>
+                            <td class="item"><h2>SubTotal</h2></td>
+                            <td class="item"><h2>Impuesto</h2></td>
+                            <td class="item"><h2>Total</h2></td>
+                        </tr>
+                        {{#each DetalleServicio }}
+                        <tr class="service">
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.NumeroLinea }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.CodigoComercial.Codigo }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.Detalle }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.PrecioUnitario }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.Cantidad }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.SubTotal }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.Impuesto.Monto }}</p></td>
+                            <td class="tableitem"><p class="itemtext">{{ LineaDetalle.MontoTotalLinea }}</p></td>
+                        </tr>
+                        {{/each}}
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h2>Sub Total</h2></td>
+                            <td class="payment"><h2>{{ ResumenFactura.TotalVenta }}</h2></td>
+                        </tr>
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h2>Descuentos</h2></td>
+                            <td class="payment"><h2>{{ ResumenFactura.TotalDescuentos }}</h2></td>
+                        </tr>
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h2>IVA</h2></td>
+                            <td class="payment"><h2>{{ ResumenFactura.TotalImpuesto }}</h2></td>
+                        </tr>
+                        <tr class="tabletitle">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="Rate"><h2>Total</h2></td>
+                            <td class="payment"><h2>{{ ResumenFactura.TotalComprobante }}</h2></td>
+                        </tr>
+                    </table>
+                </div><!--End Table-->
+                <div id="legalcopy">
+                    <p class="legal"><strong>"Autorizada mediante resolución No DGT-R-033-2019 del 27 de junio de 2019"</strong> <br>Comprobante Electrónico generado por Devfy Costa Rica<br>www.devfycr.com</p>
+                </div>
+                
+            </div><!--End InvoiceBot-->
+        </div><!--End Invoice-->
+    </div><!-- End Invoice Holder-->
+    <footer></footer>
+</body>
+</html>

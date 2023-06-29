@@ -18,7 +18,7 @@ actividades_economicas.get('/actividades-economicas/:usuario', async (req: Reque
     });
 });
 
-actividades_economicas.get('/actividades-economicas/recargar/:usuario',  _a.AutentidicacionMiddleware, async (req: Request, res: Response) => {
+actividades_economicas.get('/actividades-economicas/recargar/:usuario',async (req: Request, res: Response) => {
 
     let usuario = req.params.usuario;
 

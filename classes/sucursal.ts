@@ -38,6 +38,7 @@ export class Sucursal {
     {
         try {
             let pool = await mssql.connect(db);
+            
             let result = await pool.request()
                 .input('id', mssql.Int, (dato.id == 0) ? null : dato.id)
                 .input('usuario', mssql.Char, (dato.usuario == 0) ? null : dato.usuario)

@@ -1,5 +1,9 @@
 import { XMLBuilder } from 'fast-xml-parser';
 import fse from 'fs-extra';
+import xmlFormat from 'xml-formatter';
+
+import json2xml from 'json2xml';
+//const json2xml = require('json2xml');
 
 export class Documentos {
 
@@ -12,41 +16,53 @@ export class Documentos {
 
     /**
      * @var options
-     * @description Valores por defecto para generar el xml
+     * @description Valores por defecto para generar el xml0
      * @returns options
      */
     public options = {
         ignoreAttributes : false,
         allowBooleanAttributes: true,
         suppressBooleanAttributes: true,
-        format: true
+        format: true,
+        cdataPositionChar: '\\c'
     }
 
     /**
-     * Crear XML Factura Electrónica
-     * @param JSONFE
-     * @description JSON con la información de la factura electrónica
-     * @returns xml
+     * Crea un XML de Factura Electrónica a partir de un objeto JSON proporcionado.
+     * @param JSONFE - Objeto JSON que contiene los datos de la Factura Electrónica.
+     * @returns El XML generado de la Factura Electrónica.
+     * @throws Error si se produce un error al generar el XML.
      */
-    public async crearXMLFacturaElectronica(JSONFE:any)
-    {
+    public async crearXMLFacturaElectronica(JSONFE: any): Promise<string> {
         try {
-
-            const builder = new XMLBuilder(this.options);
-            let facturaElectronica = '';
-                facturaElectronica += '<?xml version="1.0" encoding="utf-8"?>';
-                facturaElectronica += '\n';
-                facturaElectronica += '<FacturaElectronica xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica.xsd">';
-                facturaElectronica += '\n';
-                facturaElectronica += builder.build(JSONFE);
-                facturaElectronica += '</FacturaElectronica>';
-
-            fse.writeFileSync(`${this.filePath}FE_${JSONFE.Clave}.xml`,  facturaElectronica);
-
-            return facturaElectronica;
-
-        } catch (err:any) {
-            throw new Error(`Se presento un error al generar el xml: ${err}`);
+            // Convertir el objeto JSON a XML utilizando la función json2xml
+            const xmlData = json2xml(JSONFE);
+            
+            // Construir el XML completo con las etiquetas y el contenido generado
+            const xml = `<?xml version="1.0" encoding="UTF-8"?>
+            <FacturaElectronica
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica"
+                xsi:schemaLocation="https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica https://cdn.comprobanteselectronicos.go.cr/xml-schemas/v4.3/facturaElectronica.xsd">
+            ${xmlData}
+            </FacturaElectronica>`;
+        
+            // Formatear el XML con sangrías y eliminar comentarios
+            const formattedXml = xmlFormat(xml, {
+                indentation: '    ',
+                filter: (node: { type: string }) => node.type !== 'Comment',
+                collapseContent: true,
+                lineSeparator: '\n'
+            });
+        
+            // Escribir el XML en un archivo
+            fse.writeFileSync(`${this.filePath}FE_${JSONFE.Clave}.xml`, formattedXml);
+        
+            // Devolver el XML formateado
+            return formattedXml;
+        } catch (err: any) {
+            throw new Error(`Se presentó un error al generar el XML: ${err}`);
         }
     }
 

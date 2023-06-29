@@ -20,12 +20,6 @@ hacienda.get('/hacienda/directorio/xml', async (req: Request, res:Response)=> {
 });
 
 /**
- * Genera Consecutivo Factura Electrónica
- * Ministerio de Hacienda
- */
-hacienda.get('hacienda/consecutivo/');
-
-/**
  * Genera XML Factura Electrónica
  * Ministerio de Hacienda
  */
@@ -148,9 +142,6 @@ hacienda.get('/hacienda/tipo-cambio', async (req: Request, res: Response) => {
     return res.status(200).json(data);
 });
 
-/* 14 Abril
-4 Mayo */
-
 /**
  * Información Receptor Ministerio de Hacienda
  */
@@ -185,17 +176,17 @@ hacienda.post('/hacienda/token', async (req:Request, res:Response) => {
 
     let datos = { ...req.body };
 
-    const body = {
+    const _body = {
         "client_id": datos.client_id,
-        "grant_type": 'password',
         "username": datos.username,
-        "password": datos.password
+        "password": datos.password,
+        "grant_type": 'password'
     };
-
+    
     const response:any = await fetch(URL.TOKEN, {
         method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': HEADERS.ContentTypeIDP }
+        headers: { 'Content-Type': HEADERS.ContentTypeIDP },
+        body: new URLSearchParams(_body)
     });
 
     const data:any = await response.json();
@@ -211,7 +202,7 @@ hacienda.post('/hacienda/token/refrescar', async (req:Request, res:Response) => 
 
     let datos = { ...req.body };
 
-    const body = {
+    const _body = {
         "client_id": datos.client_id,
         "grant_type": 'refresh_token',
         "refresh_token": datos.refresh_token
@@ -219,9 +210,10 @@ hacienda.post('/hacienda/token/refrescar', async (req:Request, res:Response) => 
 
     const response:any = await fetch(URL.TOKEN_DESTROY, {
         method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': HEADERS.ContentTypeIDP }
+        headers: { 'Content-Type': HEADERS.ContentTypeIDP },
+        body: new URLSearchParams(_body)
     });
+
     const data:any = await response.json();
     return res.status(200).json(data);
 });
@@ -234,16 +226,17 @@ hacienda.post('/hacienda/token/eliminar', async (req:Request, res:Response) => {
 
     let datos = { ...req.body };
 
-    const body = {
+    const _body = {
         "client_id": datos.client_id,
         "refresh_token": datos.refresh_token
     };
 
     const response:any = await fetch(URL.TOKEN_DESTROY, {
         method: 'POST',
-        body: JSON.stringify(body),
-        headers: { 'Content-Type': HEADERS.ContentTypeIDP }
+        headers: { 'Content-Type': HEADERS.ContentTypeIDP },
+        body: new URLSearchParams(_body)
     });
+
     const data:any = await response.json();
     return res.status(200).json(data);
 });

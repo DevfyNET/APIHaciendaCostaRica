@@ -22,7 +22,7 @@ firmador.post('/firmador/firmar/fe', async (req: Request, res: Response) => {
     _f.firmarFE(datos).then(result => {
         res.status(200).json({ documento: result });
     }).catch(function (err) {
-        res.status(500).json(err);
+        res.status(500).json(' E- '+err);
     });
 });
 

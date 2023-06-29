@@ -3,7 +3,6 @@ import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import  JWT from '../services/jwt';
 
-
 import Usuario from '../classes/usuario';
 
 const _u = new Usuario();
@@ -20,7 +19,6 @@ usuario.route('/usuario/crear-usuario').post((req, res) => {
             'success': true,
             'result': result
         });
-        console.log(result);
     }).catch(function (err) {
         res.status(500).json({
             'success': false,
@@ -33,13 +31,10 @@ usuario.route('/usuario/crear-usuario').post((req, res) => {
 usuario.route('/usuario/iniciar-sesion').post((req, res) => {
 
     let datos = { ...req.body };
-
-    console.log(datos);
     
     _u.iniciarSesion(datos).then( (result) => {
         bcrypt.compare( datos.pass, result.pass,  function(err, result2) {
             if (result2 != null) {
-                console.log(result2);
                 
                 /**
                  * Comprobar y generar token
@@ -48,9 +43,6 @@ usuario.route('/usuario/iniciar-sesion').post((req, res) => {
                     /**
                      * devolver token
                      */
-                    console.log(datos.token);
-                    
-                    
                     return res.status(200).send({
                         token: _jwt.CrearToken(result)
                     });
